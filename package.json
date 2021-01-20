@@ -1,0 +1,15 @@
+{
+  "name": "perruche",
+  "version": "1.0.0",
+  "description": "simple graphical interface to make audio recordings in imitation of a reference",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xiao Xiao",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  }
+}
