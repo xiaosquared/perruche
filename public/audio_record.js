@@ -80,7 +80,8 @@ function createRecordingInterface() {
   play_phrase_button.style('background-color', 'FCBA04');
   play_phrase_button.style('clear', 'left');
   play_phrase_button.mouseClicked((mouseEvent)=>{
-    phrase_audio.play();
+    if (!phrase_audio.isPlaying())
+      phrase_audio.play();
   });
 
 
@@ -96,16 +97,16 @@ function createRecordingInterface() {
     if (soundRec.recording == false) {
       console.log("Start recording");
       record_button.style('background-color', 'EF3E36');
-
       soundRec.record(soundFile);
+
+      // change playback button to orange to show that it can be used\
+      play_recorded_button.style('background-color', '#745B9A');
     }
 
     else {
       console.log("Stop recording");
       record_button.style('background-color', 'grey');
 
-      // change playback button to orange to show that it can be used
-      play_recorded_button.style('background-color', '#745B9A');
       soundRec.stop();
     }
   });
@@ -168,7 +169,10 @@ function createRecordingInterface() {
 
     if (phrases_to_record.length == 0) {
       clearRecordingInterface();
-      createP("DONE!");
+      let fin = createP("FIN!");
+      fin.style("font-size", 120);
+      let thanks = createP("Merci beaucoup!");
+      thanks.style("font-size", 30);
     }
     else {
       // pick a new phrase to record
