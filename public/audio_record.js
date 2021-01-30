@@ -171,6 +171,7 @@ function createRecordingInterface() {
       clearRecordingInterface();
       let fin = createP("FIN!");
       fin.style("font-size", 120);
+      fin.style('margin-top', '-40');
       let thanks = createP("Merci beaucoup!");
       thanks.style("font-size", 30);
     }
