@@ -7,19 +7,83 @@
     body {
       -webkit-user-select: none; /* To prevent the copy/lookup popup from popping up when I hold my finger down */
       overscroll-behavior-y: none;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: center;
+      font-family: Verdana;
+      font-size: 20;
     }
 
     div {
+      position: relative;
+      left: 50%;
+      right:50%;
+      text-align: center;
+      vertical-align: middle;
+      align-items: center;
+    }
+
+    p {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #subject_field {
       display: flex;
+      left: 0%;
       justify-content: center;
       align-items: center;
     }
+
+    #title {
+      margin-top: 120;
+      text-align: center;
+      padding: 10;
+      font-size: 36;
+    }
+
+    fieldset {
+      border: 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .recording_interface {
+      visibility: hidden;
+      width: 250px;
+      padding: 30;
+      color: #FFF;
+    }
+
+    #play_ref {
+      margin-top: 50;
+    }
+
     </style>
   </head>
 
-
   <body>
-    <main>
-    </main>
+
+
+    <h1 id='title'>Expérience Gépeto: L'Imitation Vocale</h1>
+
+    <div id='subject_field'>
+		<fieldset>
+      <label for='subject'> Numéro de sujet:</label>
+      <input type='text' name='subject' maxlength='8' margin-left='5' id='subject_input'>
+      <input type="submit" name='upload' id='upload_subject'>
+    </fieldset>
+    </div>
+
+    <p id='subject_info'></p>
+    <p id='phrase_info'></p>
+
+    <p class='recording_interface' id='play_ref'>Écouter référence </p>
+    <p class='recording_interface' id='record'>Enregistrer ma voix</p>
+    <p class='recording_interface' id='play_recorded'>Écouter mon enregistrement</p>
+    <p class='recording_interface' id='save_recorded'>Sauvegarder mon enregistrement</p>
+
   </body>
 </html>

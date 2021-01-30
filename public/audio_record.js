@@ -2,16 +2,14 @@ let mic;
 let soundRec;
 let soundFile;
 
-let title;
-let id_input;
-let id_label;
 let id;
 let submit_id_button;
 
 let phrase_label;
 
+let recording_interface;
 let play_phrase_button;
-let record_button;
+let record_button; ////EF3E36;
 let play_recorded_button;
 let upload_button;
 
@@ -30,24 +28,19 @@ function setup() {
 }
 
 function createFirstPage() {
-  title = createElement("h1", "Record audio reproductions");
 
-  id_label = createP("Subject #:");
-  id_input = createInput('');
-
-  submit_id_button = createButton("Submit");
+  submit_id_button = select('#upload_subject');
   submit_id_button.mouseClicked((mouseEvent)=>{
-    id = id_input.value();
-    sendSubjectID(id_input.value());
+    id = select('#subject_input').value();
+    sendSubjectID(id);
   });
 }
 
 function clearFirstPage() {
-  //title.remove();
-  id_input.remove();
-  submit_id_button.remove();
-  console.log(id_label);
-  id_label.elt.innerHTML = "Subject #: " + id;
+  select('#subject_field').remove();
+  id_label = select('#subject_info');
+  id_label.style('visibility', 'visible');
+  id_label.elt.innerHTML = "Numéro du sujet: " + id;
 }
 
 // Send id to server. Get list of phrases back. Pick a phrase as the first
@@ -60,11 +53,10 @@ async function sendSubjectID(to_send) {
   }
   const response = await fetch('/subject', options);
   phrases_to_record = await response.json();
-  current_phrase_index = floor(random(phrases_to_record.length));
-  phrase = phrases_to_record[current_phrase_index];
-  phrase_audio = loadSound("data/" + phrase + ".mp3", function() {
+  phrase = phrases_to_record[0];
+  phrase_audio = loadSound("data/" + phrase + ".wav", function() {
     console.log("successfully loaded " + phrase);
-    play_phrase_button.style('background-color', 'green');
+    play_phrase_button.style('background-color', '#FCBA04');
   });
 
   clearFirstPage();
@@ -72,7 +64,10 @@ async function sendSubjectID(to_send) {
 }
 
 function createRecordingInterface() {
-  phrase_label = createP("Phrases remaining: " + phrases_to_record.length);
+  phrase_label = select('#phrase_info');
+  phrase_label.style('visibility', 'visible');
+  phrase_label.elt.innerHTML = "Nombre de phrases qui restent: " + phrases_to_record.length;
+
 
   mic = new p5.AudioIn();
   mic.start();
@@ -80,19 +75,17 @@ function createRecordingInterface() {
   soundRec.setInput(mic)
   soundFile = new p5.SoundFile();
 
-  createP();
-
-  play_phrase_button = createDiv("Play phrase");
-  play_phrase_button.size(100, 50);
-  play_phrase_button.style('background-color', 'green');
+  play_phrase_button = select('#play_ref');
+  play_phrase_button.style('visibility', 'visible');
+  play_phrase_button.style('background-color', 'FCBA04');
+  play_phrase_button.style('clear', 'left');
   play_phrase_button.mouseClicked((mouseEvent)=>{
     phrase_audio.play();
   });
 
-  createP();
 
-  record_button = createDiv("Record voice");
-  record_button.size(100,50);
+  record_button = select('#record');
+  record_button.style('visibility', 'visible');
   record_button.style('background-color', 'grey');
 
   record_button.mouseClicked((mouseEvent)=>{
@@ -102,7 +95,7 @@ function createRecordingInterface() {
 
     if (soundRec.recording == false) {
       console.log("Start recording");
-      record_button.style('background-color', 'red');
+      record_button.style('background-color', 'EF3E36');
 
       soundRec.record(soundFile);
     }
@@ -112,15 +105,13 @@ function createRecordingInterface() {
       record_button.style('background-color', 'grey');
 
       // change playback button to orange to show that it can be used
-      play_recorded_button.style('background-color', 'orange');
+      play_recorded_button.style('background-color', '#745B9A');
       soundRec.stop();
     }
   });
 
-  createP();
-
-  play_recorded_button = createDiv("Play recorded");
-  play_recorded_button.size(100, 50);
+  play_recorded_button = select('#play_recorded');
+  play_recorded_button.style('visibility', 'visible');
   play_recorded_button.style('background-color', 'grey');
   play_recorded_button.mouseClicked((mouseEvent)=>{
     if (soundRec.recording) {
@@ -128,15 +119,13 @@ function createRecordingInterface() {
       record_button.style('background-color', 'grey');
     }
     if (soundFile.isLoaded() && !soundFile.isPlaying()) {
-      upload_button.style('background-color', 'pink');
+      upload_button.style('background-color', '#1B998B');
       soundFile.play();
     }
   });
 
-  createP();
-
-  upload_button = createDiv("Upload File");
-  upload_button.size(100, 50);
+  upload_button = select('#save_recorded');
+  upload_button.style('visibility', 'visible');
   upload_button.style('background-color', 'grey');
   upload_button.mouseClicked((mouseEvent)=>{
     console.log("Upload file");
@@ -175,30 +164,31 @@ function createRecordingInterface() {
     // clear the phrase audio
     phrase_audio = null;
     // remove the phrase we just recorded from the list to record
-    phrases_to_record.splice(current_phrase_index, 1);
+    phrases_to_record.splice(0, 1);
 
     if (phrases_to_record.length == 0) {
       clearRecordingInterface();
       createP("DONE!");
     }
+    else {
+      // pick a new phrase to record
+      //current_phrase_index = floor(random(phrases_to_record.length));
+      // change label of how many phrases are left:
+      phrase_label.elt.innerHTML =  "Nombre de phrases qui restent: " + phrases_to_record.length;
 
-    // pick a new phrase to record
-    current_phrase_index = floor(random(phrases_to_record.length));
-    // change label of how many phrases are left:
-    phrase_label.elt.innerHTML = "Phrases remaining: " + phrases_to_record.length;
+      // disable all buttons
+      play_phrase_button.style('background-color', 'grey');
+      record_button.style('background-color', 'grey');
+      play_recorded_button.style('background-color', 'grey');
+      upload_button.style('background-color', 'grey');
 
-    // disable all buttons
-    play_phrase_button.style('background-color', 'grey');
-    record_button.style('background-color', 'grey');
-    play_recorded_button.style('background-color', 'grey');
-    upload_button.style('background-color', 'grey');
-
-    // load new phrase
-    phrase = phrases_to_record[current_phrase_index];
-    phrase_audio = loadSound("data/" + phrase + ".mp3", function() {
-      console.log("successfully loaded " + phrase);
-      play_phrase_button.style('background-color', 'green');
-    });
+      // load new phrase
+      phrase = phrases_to_record[0];
+      phrase_audio = loadSound("data/" + phrase + ".wav", function() {
+        console.log("successfully loaded " + phrase);
+        play_phrase_button.style('background-color', '#FCBA04');
+      });
+    }
   }
 
   function clearRecordingInterface() {

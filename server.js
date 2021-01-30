@@ -11,7 +11,8 @@ app.post('/subject', (request, response)=> {
   console.log("Got subject id: " + request.body.id);
 
   // get available phrases
-  let phrases = glob.sync('public/data/*.mp3', {});
+  // Check to see if files.txt exists in the folder
+  let phrases = fs.readFileSync('public/data/files.txt').toString().split("\n");
   let phrases_to_record = [];
   phrases.forEach((item, index) => {
     let item2 = item.split('/');
@@ -19,22 +20,54 @@ app.post('/subject', (request, response)=> {
   });
 
   const path = 'public/uploads/s'+request.body.id;
-  if (fs.existsSync(path)) {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path, 0744);
     // Subject's folder already exists
     // Look at which phrases have already been recorded and remove them from phrase_names
-    let my_recordings = glob.sync(path+'/*.wav', {});
-    phrases_to_record.forEach((item, index) => {
-      let isRecorded = alreadyRecorded(item, my_recordings);
-      if (isRecorded) {
-        phrases_to_record.splice(index, 1);
-      }
-    });
-  } else {
-    // New subject. Create folder to store files
-    fs.mkdirSync(path, 0744);
+    // let my_recordings = glob.sync(path+'/*.wav', {});
+    // phrases_to_record.forEach((item, index) => {
+    //   let isRecorded = alreadyRecorded(item, my_recordings);
+    //   if (isRecorded) {
+    //     phrases_to_record.splice(index, 1);
+    //   }
+    // });
   }
+
+  phrases_to_record = shufflePhrases(phrases_to_record);
+
   response.json(phrases_to_record);
 });
+
+function shufflePhrases(phrases) {
+  // Randomize phrases
+  // first an array half the length of phrases with incrementing numbers
+  let order = Array.from(Array(phrases.length/2).keys());
+  // shuffle it
+  for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+  }
+
+  let experiment_phrases = [];
+  // Populate experiment_phrases based on order array
+  for (let i = 0; i < order.length; i ++) {
+    let index = order[i] * 2;
+    let p1 = phrases[index];
+    let p2 = phrases[index+1];
+
+    // 50% chance of having either first
+    if (Math.floor(Math.random() * Math.floor(2)) >= 1) {
+      experiment_phrases.push(p2);
+      experiment_phrases.push(p1);
+    } else {
+      experiment_phrases.push(p1);
+      experiment_phrases.push(p2);
+    }
+  }
+
+  return experiment_phrases;
+}
+
 
 // Helper function to see which phrases have already been recorded
 function alreadyRecorded(phrase, my_recordings) {
