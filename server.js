@@ -22,21 +22,36 @@ app.post('/subject', (request, response)=> {
   const path = 'public/uploads/s'+request.body.id;
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path, 0744);
-    // Subject's folder already exists
-    // Look at which phrases have already been recorded and remove them from phrase_names
-    // let my_recordings = glob.sync(path+'/*.wav', {});
-    // phrases_to_record.forEach((item, index) => {
-    //   let isRecorded = alreadyRecorded(item, my_recordings);
-    //   if (isRecorded) {
-    //     phrases_to_record.splice(index, 1);
-    //   }
-    // });
   }
 
   phrases_to_record = shufflePhrases(phrases_to_record);
 
   response.json(phrases_to_record);
 });
+
+app.post('/subject_lecture', (request, response)=> {
+  console.log("Got subject id: " + request.body.id);
+
+  // get available phrases
+  // Check to see if files.txt exists in the folder
+  let phrases = fs.readFileSync('public/data/files_lecture.txt').toString().split("\n");
+  let phrases_to_record = [];
+  phrases.forEach((item, index) => {
+    let item2 = item.split('/');
+    phrases_to_record.push(item2[item2.length-1].split('.')[0]);
+  });
+
+  const path = 'public/uploads/s'+request.body.id;
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path, 0744);
+  }
+
+  phrases_to_record = shufflePhrases(phrases_to_record);
+
+  response.json(phrases_to_record);
+});
+
+
 
 function shufflePhrases(phrases) {
   // Randomize phrases
@@ -81,7 +96,7 @@ function alreadyRecorded(phrase, my_recordings) {
 
 app.post('/upload', upload.single('soundBlob'), function (req, res, next) {
   // console.log(req.file); // see what got uploaded
-  let subject = req.file.originalname.split("-")[1]
+  let subject = req.file.originalname.split("-")[2]
 
   // where to save the file to. make sure the incoming name has a .wav extension
   let uploadLocation = __dirname + '/public/uploads/' + subject + "/" + req.file.originalname + ".wav";

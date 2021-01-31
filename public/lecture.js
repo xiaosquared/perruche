@@ -8,14 +8,13 @@ let submit_id_button;
 let phrase_label;
 
 let recording_interface;
-let play_phrase_button;
 let record_button; ////EF3E36;
 let play_recorded_button;
 let upload_button;
 
 let phrase;
+let phrase_id;
 let phrase_index = 0;
-let phrase_audio;
 
 let phrases_to_record;
 let currrent_phrase_index;
@@ -52,13 +51,15 @@ async function sendSubjectID(to_send) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(data)
   }
-  const response = await fetch('/subject', options);
+  const response = await fetch('/subject_lecture', options);
   phrases_to_record = await response.json();
-  phrase = phrases_to_record[phrase_index];
-  phrase_audio = loadSound("data/" + phrase + ".wav", function() {
-    console.log("successfully loaded " + phrase);
-    play_phrase_button.style('background-color', '#FCBA04');
-  });
+
+  let phrase_info = phrases_to_record[phrase_index].split('-');
+  phrase = phrase_info[1];
+  phrase_id = phrase_info[0];
+  select('#current_phrase').elt.innerHTML = phrase;
+  select('#current_phrase').style("visibility", "visible");
+  console.log("Phrase : " + phrase);
 
   clearFirstPage();
   createRecordingInterface();
@@ -75,16 +76,6 @@ function createRecordingInterface() {
   phrase_label.style('visibility', 'visible');
   phrase_label.elt.innerHTML = "Nombre de phrases qui restent: " + phrases_to_record.length;
 
-  play_phrase_button = select('#play_ref');
-  play_phrase_button.style('visibility', 'visible');
-  play_phrase_button.style('background-color', 'FCBA04');
-  play_phrase_button.style('clear', 'left');
-  play_phrase_button.mouseClicked((mouseEvent)=>{
-    if (!phrase_audio.isPlaying())
-      phrase_audio.play();
-  });
-
-
   record_button = select('#record');
   record_button.style('visibility', 'visible');
   record_button.style('background-color', 'F6938E');
@@ -100,7 +91,7 @@ function createRecordingInterface() {
       soundRec.record(soundFile);
 
       // change playback button to orange to show that it can be used\
-      play_recorded_button.style('background-color', '745B9A');
+      play_recorded_button.style('background-color', '#745B9A');
     }
 
     else {
@@ -120,7 +111,7 @@ function createRecordingInterface() {
       record_button.style('background-color', 'F6938E');
     }
     if (soundFile.isLoaded() && !soundFile.isPlaying()) {
-      upload_button.style('background-color', '1B998B');
+      upload_button.style('background-color', '#1B998B');
       soundFile.play();
     }
   });
@@ -134,7 +125,7 @@ function createRecordingInterface() {
     let soundBlob = soundFile.getBlob(); //get the recorded soundFile's blob & store it in a variable
     let formdata = new FormData(); // create data to upload to the server
 
-    let filename = phrase_index + "-" + phrase + "-s" + id;
+    let filename = phrase_index + "-" + phrase_id + "-s" + id + "-lecture";
     formdata.append('soundBlob', soundBlob, filename); // append the sound blob and the name of the file. third argument will show up on the server as req.file.originalname
 
     // Now send blob to server
@@ -162,17 +153,15 @@ function createRecordingInterface() {
   });
 
   function initNewPhrase() {
-    // clear the phrase audio
-    phrase_audio = null;
-    // remove the phrase we just recorded from the list to record
-    phrase_index ++;
+    // increment phrase index
+    phrase_index++;
 
     if (phrase_index == phrases_to_record.length) {
       clearRecordingInterface();
       let fin = createP("FIN!");
       fin.style("font-size", 120);
       fin.style('margin-top', '-40');
-      let thanks = createP("Merci beaucoup!");
+      let thanks = createP("de cette partie");
       thanks.style("font-size", 30);
     }
     else {
@@ -183,27 +172,26 @@ function createRecordingInterface() {
       phrase_label.elt.innerHTML =  "Nombre de phrases qui restent: " + phrases_left;
 
       // disable all buttons
-      play_phrase_button.style('background-color', 'grey');
       record_button.style('background-color', 'F6938E');
       play_recorded_button.style('background-color', 'grey');
       upload_button.style('background-color', 'grey');
 
       // load new phrase
-      phrase = phrases_to_record[phrase_index];
-      phrase_audio = loadSound("data/" + phrase + ".wav", function() {
-        console.log("successfully loaded " + phrase);
-        play_phrase_button.style('background-color', '#FCBA04');
-      });
+      let phrase_info = phrases_to_record[phrase_index].split('-');
+      phrase = phrase_info[1];
+      phrase_id = phrase_info[0];
+      select('#current_phrase').elt.innerHTML = phrase;
+      console.log("New phrase: " + phrase);
     }
   }
 
   function clearRecordingInterface() {
-    play_phrase_button.remove();
     record_button.remove();
     play_recorded_button.remove();
     upload_button.remove();
     id_label.remove();
     phrase_label.remove();
+    select('#current_phrase').remove();
   }
 
 }

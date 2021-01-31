@@ -2,7 +2,7 @@
   <head>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
     <script src="libs/p5.sound.js"></script>
-    <script src="audio_record.js"></script>
+    <script src="lecture.js"></script>
     <style type="text/css">
     body {
       -webkit-user-select: none; /* To prevent the copy/lookup popup from popping up when I hold my finger down */
@@ -29,7 +29,7 @@
     }
 
     #title {
-      margin-top: 120;
+      margin-top: 100;
       text-align: center;
       padding: 10;
       font-size: 36;
@@ -55,8 +55,15 @@
       border: 3px solid #caced1;
     }
 
-    #play_ref {
+    #record {
       margin-top: 50;
+    }
+
+    #current_phrase {
+      font-size: 48;
+      padding: 20;
+      border: 4px dashed #3BCECE;
+      visibility: hidden;
     }
 
     </style>
@@ -64,8 +71,7 @@
 
   <body>
 
-
-    <h1 id='title'>Expérience Gépeto: L'Imitation Vocale</h1>
+    <h1 id='title'>Expérience Gépeto: Lecture</h1>
 
     <div id='subject_field'>
 		<fieldset>
@@ -78,7 +84,8 @@
     <p id='subject_info'></p>
     <p id='phrase_info'></p>
 
-    <p class='recording_interface' id='play_ref'>Écouter la référence </p>
+    <p id='current_phrase'></p>
+
     <p class='recording_interface' id='record'>Enregistrer ma voix</p>
     <p class='recording_interface' id='play_recorded'>Écouter mon enregistrement</p>
     <p class='recording_interface' id='save_recorded'>Sauvegarder mon enregistrement</p>
