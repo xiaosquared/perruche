@@ -1,0 +1,12 @@
+2_tu_parais_tres_soucieux-Tu parais très soucieux
+2bis_tu_paraitrais_soucieux-Tu paraitrais soucieux
+7_Jean_leve_son_verre-Jean lève son verre
+7bis_Jenleve_son_verre-J'enlève son verre
+8_jean_porte_un_journal-Jean porte un journal
+8bis_jemporte_un_journal-J'emporte un journal
+10_jean_saigne_beaucoup-Jean saigne beaucoup
+10bis_jenseigne_beaucoup-J'enseigne beaucoup
+11_jean_cadre_la_photo-Jean cadre la photo
+11bis_jencadre_la_photo-J'encadre la photo
+21_cest_la_mort_sure-C'est la mort sure
+21bis_cest_la_morsure-C'est la morsure
