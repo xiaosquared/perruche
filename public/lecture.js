@@ -88,17 +88,18 @@ function createRecordingInterface() {
     if (soundRec.recording == false) {
       console.log("Start recording");
       record_button.style('background-color', 'EF3E36');
+      record_button.elt.innerHTML = "En train d'enregistrer...";
       soundRec.record(soundFile);
 
-      // change playback button to orange to show that it can be used\
       play_recorded_button.style('background-color', '#745B9A');
     }
 
     else {
       console.log("Stop recording");
-      record_button.style('background-color', 'F6938E');
 
       soundRec.stop();
+      record_button.style('background-color', 'F6938E');
+      record_button.elt.innerHTML = "Enregistrer ma voix";
     }
   });
 
@@ -109,6 +110,7 @@ function createRecordingInterface() {
     if (soundRec.recording) {
       soundRec.stop();
       record_button.style('background-color', 'F6938E');
+      record_button.elt.innerHTML = "Enregistrer ma voix";
     }
     if (soundFile.isLoaded() && !soundFile.isPlaying()) {
       upload_button.style('background-color', '#1B998B');
@@ -161,7 +163,7 @@ function createRecordingInterface() {
       let fin = createP("FIN!");
       fin.style("font-size", 120);
       fin.style('margin-top', '-40');
-      let thanks = createP("de cette partie");
+      let thanks = createP("de la partie");
       thanks.style("font-size", 30);
     }
     else {

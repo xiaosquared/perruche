@@ -97,6 +97,7 @@ function createRecordingInterface() {
     if (soundRec.recording == false) {
       console.log("Start recording");
       record_button.style('background-color', 'EF3E36');
+      record_button.elt.innerHTML = "En train d'enregistrer...";
       soundRec.record(soundFile);
 
       // change playback button to orange to show that it can be used\
@@ -105,9 +106,10 @@ function createRecordingInterface() {
 
     else {
       console.log("Stop recording");
-      record_button.style('background-color', 'F6938E');
 
       soundRec.stop();
+      record_button.style('background-color', 'F6938E');
+      record_button.elt.innerHTML = "Enregistrer ma voix";
     }
   });
 
@@ -117,6 +119,7 @@ function createRecordingInterface() {
   play_recorded_button.mouseClicked((mouseEvent)=>{
     if (soundRec.recording) {
       soundRec.stop();
+      record_button.elt.innerHTML = "Enregistrer ma voix";
       record_button.style('background-color', 'F6938E');
     }
     if (soundFile.isLoaded() && !soundFile.isPlaying()) {
