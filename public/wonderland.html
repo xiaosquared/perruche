@@ -7,15 +7,17 @@
 
   img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
 </style>
 
 <body>
+  <span>
   <img src="photos.png" usemap="#image-map">
-
   <map name="image-map">
       <area target="" alt="parlor" title="parlor" href="https://meet.jit.si/WonderlandParlor" coords="148,798,28,489,338,366,378,478,391,613,433,613,458,678" shape="poly">
       <area target="" alt="invite" title="invite" href="" coords="261,386,98,400,74,70,405,41,416,194,355,198,368,379,350,378,343,356,277,385" shape="poly">
@@ -25,6 +27,7 @@
       <area target="" alt="crepe myrtle" title="crepe myrtle" href="https://meet.jit.si/WonderlandCrepeMyrtle" coords="1071,411,1051,304,1079,99,1007,86,1334,23,1398,350,1184,389,1091,352" shape="poly">
       <area target="" alt="porch" title="porch" href="https://meet.jit.si/WonderlandPorch" coords="977,674,1097,364,1406,483,1287,793" shape="poly">
   </map>
+  </span>
 </body>
 
 </html>
