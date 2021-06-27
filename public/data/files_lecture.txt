@@ -1,12 +1,8 @@
-2_tu_parais_tres_soucieux-Tu parais très soucieux
-2bis_tu_paraitrais_soucieux-Tu paraitrais soucieux
-7_Jean_leve_son_verre-Jean lève son verre
-7bis_Jenleve_son_verre-J'enlève son verre
-8_jean_porte_un_journal-Jean porte un journal
-8bis_jemporte_un_journal-J'emporte un journal
-10_jean_saigne_beaucoup-Jean saigne beaucoup
-10bis_jenseigne_beaucoup-J'enseigne beaucoup
-11_jean_cadre_la_photo-Jean cadre la photo
-11bis_jencadre_la_photo-J'encadre la photo
-21_cest_la_mort_sure-C'est la mort sure
-21bis_cest_la_morsure-C'est la morsure
+3a-demo-susan_didnt_get_one_credit,Susan didn't get one credit,She got zero,3a.png
+3b-demo-susan_didnt_get_one_credit,Susan didn't get one credit,She got lots,3b.png
+5a-demo-the_food_didnt_taste_good,The food didn't taste good,It tasted bad,5a.png
+5b-demo-the_food_didnt_taste_good,The food didn't taste good,It tasted great!,5b.png
+Aa-demo-ken_didnt_feed_the_cat,Ken didn't feed the cat,He forgot to,Aa.png
+Ab-demo-ken_didnt_feed_the_cat,Ken didn't feed the cat,He fed the dog,Ab.png
+Ca-demo-nick_doesnt_listen_to_anyone,Nick doesn't listen to anyone,He only follows his own ideas,Ca.png
+Cb-demo-nick_doesnt_listen_to_anyone,Nick doesn't listen to anyone,He only listens to his best friends,Cb.png

@@ -36,17 +36,15 @@ app.post('/subject_lecture', (request, response)=> {
   // Check to see if files.txt exists in the folder
   let phrases = fs.readFileSync('public/data/files_lecture.txt').toString().split("\n");
   let phrases_to_record = [];
-  phrases.forEach((item, index) => {
-    let item2 = item.split('/');
-    phrases_to_record.push(item2[item2.length-1].split('.')[0]);
-  });
 
   const path = 'public/uploads/s'+request.body.id;
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path, 0744);
   }
 
-  phrases_to_record = shufflePhrases(phrases_to_record);
+  phrases_to_record = shufflePhrases(phrases);
+  console.log(phrases_to_record)
+
 
   response.json(phrases_to_record);
 });
@@ -95,8 +93,8 @@ function alreadyRecorded(phrase, my_recordings) {
 }
 
 app.post('/upload', upload.single('soundBlob'), function (req, res, next) {
-  // console.log(req.file); // see what got uploaded
-  let subject = req.file.originalname.split("-")[2]
+  //console.log(req.file); // see what got uploaded
+  let subject = req.file.originalname.split("-")[2];
 
   // where to save the file to. make sure the incoming name has a .wav extension
   let uploadLocation = __dirname + '/public/uploads/' + subject + "/" + req.file.originalname + ".wav";

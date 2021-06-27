@@ -1,0 +1,125 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+    <script src="libs/p5.sound.js"></script>
+    <script src="free.js"></script>
+    <style type="text/css">
+    body {
+      -webkit-user-select: none; /* To prevent the copy/lookup popup from popping up when I hold my finger down */
+      overscroll-behavior-y: none;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: center;
+      font-family: Verdana;
+      font-size: 20;
+    }
+
+    p {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #info {
+      text-align:center;
+      margin-top:-10px;
+      font-size:16;
+    }
+
+    .info {
+      margin-top:-25px;
+      display:inline-block;
+    }
+
+    #subject_field {
+      display: flex;
+      left: 0%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #title {
+      margin-top: 10;
+      text-align: center;
+      padding: 10;
+      font-size: 36;
+    }
+
+    fieldset {
+      border: 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .recording_interface {
+      margin-top:-15px;
+      visibility: hidden;
+      width: 250px;
+      padding: 30;
+      color: #FFF;
+      border: 3px solid transparent;
+    }
+    .recording_interface:hover {
+      border: 3px solid #687178;
+    }
+    .recording_interface:active {
+      border: 3px solid #caced1;
+    }
+
+    #record {
+      margin-top: 50;
+    }
+
+    #current_phrase {
+      font-size: 35;
+      margin-top: 20px;
+      padding: 20;
+      border: 4px dashed #3BCECE;
+      visibility: hidden;
+    }
+
+    #hint {
+      font-size: 30:
+      visibility: hidden;
+      font-weight: bold;
+    }
+
+    #my_img {
+      visibility: hidden;
+      margin-top:-30px;
+      margin-left:auto;
+      margin-right:auto;
+      display:block;
+    }
+
+    </style>
+  </head>
+
+  <body>
+
+    <h1 id='title'>Gépeto Experiment: Free Interpretation</h1>
+
+    <div id='subject_field'>
+		<fieldset>
+      <label for='subject'> Subject ID:</label>
+      <input type='text' name='subject' maxlength='8' margin-left='5' id='subject_input'>
+      <input type="submit" name='upload' id='upload_subject'>
+    </fieldset>
+    </div>
+
+    <div id='info'>
+      <p id='subject_info' class='info'></p>
+      <p id='phrase_info' class='info'></p>
+    </div>
+
+    <p id='current_phrase'></p>
+    <img id='my_img' src=''>
+    <p id='hint'></p>
+
+    <p class='recording_interface' id='record'>Record my voice</p>
+    <p class='recording_interface' id='play_recorded'>Listen to my recording</p>
+    <p class='recording_interface' id='save_recorded'>Save recording and continue</p>
+
+  </body>
+</html>
