@@ -81,7 +81,6 @@ function shufflePhrases(phrases) {
   return experiment_phrases;
 }
 
-
 // Helper function to see which phrases have already been recorded
 function alreadyRecorded(phrase, my_recordings) {
   for (let i = 0; i < my_recordings.length; i++) {
