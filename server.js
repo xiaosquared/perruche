@@ -93,7 +93,7 @@ function alreadyRecorded(phrase, my_recordings) {
 
 app.post('/upload', upload.single('soundBlob'), function (req, res, next) {
   //console.log(req.file); // see what got uploaded
-  let subject = req.file.originalname.split("-")[2];
+  let subject = req.file.originalname.split("-")[0];
 
   // where to save the file to. make sure the incoming name has a .wav extension
   let uploadLocation = __dirname + '/public/uploads/' + subject + "/" + req.file.originalname + ".wav";

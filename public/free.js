@@ -140,7 +140,8 @@ function createRecordingInterface() {
     let soundBlob = soundFile.getBlob(); //get the recorded soundFile's blob & store it in a variable
     let formdata = new FormData(); // create data to upload to the server
 
-    let filename = phrase_index + "-" + phrase_id + "-s" + id + "-free";
+    //let filename = phrase_index + "-" + phrase_id + "-s" + id + "-free";
+    let filename = "s" + id + "-free-" + phrase_id + "-" + phrase_index;
     formdata.append('soundBlob', soundBlob, filename); // append the sound blob and the name of the file. third argument will show up on the server as req.file.originalname
 
     // Now send blob to server

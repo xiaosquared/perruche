@@ -73,7 +73,7 @@ function createRecordingInterface() {
 
   phrase_label = select('#phrase_info');
   phrase_label.style('visibility', 'visible');
-  phrase_label.elt.innerHTML = "Phrases remaining: " + phrases_to_record.length;
+  phrase_label.elt.innerHTML = "Phrases qui restent: " + phrases_to_record.length; //Phrases remainin
 
   play_phrase_button = select('#play_ref');
   play_phrase_button.style('visibility', 'visible');
@@ -139,7 +139,8 @@ function createRecordingInterface() {
 
     let phrase_id = phrase.split('-')[0];
 
-    let filename = phrase_index + "-" + phrase_id + "-s" + id + "-imitation";
+    //let filename = phrase_index + "-" + phrase_id + "-s" + id + "-imitation";
+    let filename = "s" + id + "-imitation-" + phrase_id + "-" + phrase_index;
     formdata.append('soundBlob', soundBlob, filename); // append the sound blob and the name of the file. third argument will show up on the server as req.file.originalname
 
     // Now send blob to server
