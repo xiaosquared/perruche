@@ -73,7 +73,7 @@ function createRecordingInterface() {
 
   phrase_label = select('#phrase_info');
   phrase_label.style('visibility', 'visible');
-  phrase_label.elt.innerHTML = "Phrases qui restent: " + phrases_to_record.length; //Phrases remainin
+  phrase_label.elt.innerHTML = "Phrases remaining: " + phrases_to_record.length; //Phrases remainin
 
   play_phrase_button = select('#play_ref');
   play_phrase_button.style('visibility', 'visible');

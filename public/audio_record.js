@@ -41,7 +41,7 @@ function clearFirstPage() {
   select('#subject_field').remove();
   id_label = select('#subject_info');
   id_label.style('visibility', 'visible');
-  id_label.elt.innerHTML = "Numéro du sujet: " + id;
+  id_label.elt.innerHTML = "Subject ID: " + id;
 }
 
 // Send id to server. Get list of phrases back. Pick a phrase as the first
@@ -73,7 +73,7 @@ function createRecordingInterface() {
 
   phrase_label = select('#phrase_info');
   phrase_label.style('visibility', 'visible');
-  phrase_label.elt.innerHTML = "Nombre de phrases qui restent: " + phrases_to_record.length;
+  phrase_label.elt.innerHTML = "Number of phrases remaining: " + phrases_to_record.length;
 
   play_phrase_button = select('#play_ref');
   play_phrase_button.style('visibility', 'visible');
@@ -97,7 +97,7 @@ function createRecordingInterface() {
     if (soundRec.recording == false) {
       console.log("Start recording");
       record_button.style('background-color', 'EF3E36');
-      record_button.elt.innerHTML = "En train d'enregistrer...";
+      record_button.elt.innerHTML = "Recording...";
       soundRec.record(soundFile);
 
       // change playback button to orange to show that it can be used\
@@ -109,7 +109,7 @@ function createRecordingInterface() {
 
       soundRec.stop();
       record_button.style('background-color', 'F6938E');
-      record_button.elt.innerHTML = "Enregistrer ma voix";
+      record_button.elt.innerHTML = "Record my voice";
     }
   });
 
@@ -119,7 +119,7 @@ function createRecordingInterface() {
   play_recorded_button.mouseClicked((mouseEvent)=>{
     if (soundRec.recording) {
       soundRec.stop();
-      record_button.elt.innerHTML = "Enregistrer ma voix";
+      record_button.elt.innerHTML = "Record my voice";
       record_button.style('background-color', 'F6938E');
     }
     if (soundFile.isLoaded() && !soundFile.isPlaying()) {
@@ -175,7 +175,7 @@ function createRecordingInterface() {
       let fin = createP("FIN!");
       fin.style("font-size", 120);
       fin.style('margin-top', '-40');
-      let thanks = createP("Merci beaucoup!");
+      let thanks = createP("Thank you!");
       thanks.style("font-size", 30);
     }
     else {
@@ -183,7 +183,7 @@ function createRecordingInterface() {
       //current_phrase_index = floor(random(phrases_to_record.length));
       // change label of how many phrases are left:
       let phrases_left = phrases_to_record.length-phrase_index;
-      phrase_label.elt.innerHTML =  "Nombre de phrases qui restent: " + phrases_left;
+      phrase_label.elt.innerHTML =  "Number of phrases remaining: " + phrases_left;
 
       // disable all buttons
       play_phrase_button.style('background-color', 'grey');
