@@ -6,8 +6,8 @@ Simple interface for audio recording in experiments.
 Clone repository and install NPM (node.js package manager)
 
 ```
-git clone git@github.com:xiaosquared/GepetoJS.git
-cd GepetoJS
+git clone git@github.com:xiaosquared/perruche.git
+cd perruche
 npm install
 ```
 
